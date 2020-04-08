@@ -2,7 +2,6 @@ class Calculator {
     constructor(currentValue, previousValue) {
         this.currentValue = currentValue;
         this.previousValue = previousValue;
-
         this.currentOperand = '';
         this.previousOperand = '';
         this.operator = '';
@@ -14,21 +13,18 @@ class Calculator {
         this.currentOperand = '';
         this.previousOperand = '';
         this.operator = '';
-        
         this.display();
     }
 
     delete() {
-        let array = this.currentOperand.toString().split('');
+        let array = this.currentOperand.split('');
         this.currentOperand = array.slice(0, -1).join('');
-
         this.display();
     }
 
     addNumber(number) {
         if(number === '.' && this.currentOperand.includes('.')) return;
         this.currentOperand = this.currentOperand + number;
-
         this.display();
     }
 
@@ -46,17 +42,15 @@ class Calculator {
         if(this.currentOperand.length === 1 && this.currentOperand.includes('-')) {
             return;
         } else {
-            if(!this.operator) {
-    
-                this.operator = operator;
-                this.previousOperand = this.currentOperand;
-                this.currentOperand = '';
-                this.display();
-            } else {
+            if(this.operator) {
                 this.compute();
             }
+
+            this.operator = operator;
+            this.previousOperand = this.currentOperand;
+            this.currentOperand = '';
+            this.display();
         }
-        
     }
     
     compute() {
@@ -82,8 +76,7 @@ class Calculator {
         }
 
         this.previousValue.innerText = this.currentValue.innerText;
-        
-        this.currentOperand = output;
+        this.currentOperand = output.toString();
         this.previousOperand = '';
         this.operator = '';
 
@@ -93,7 +86,6 @@ class Calculator {
     display() {
         this.currentValue.innerText = this.previousOperand + this.operator + this.currentOperand;
     }
-
 }
 
 const outputCurrent = document.querySelector('.output__current');
@@ -125,6 +117,7 @@ deleteButton.addEventListener('click', () => {
 
 equalButton.addEventListener('click', () => {
     calculator.compute();
+
 });
 
 window.addEventListener('keypress', (evt) => {
