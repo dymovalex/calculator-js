@@ -19,8 +19,7 @@ class Calculator {
     }
 
     delete() {
-        console.log(this.currentOperand);
-        let array = this.currentOperand.split('');
+        let array = this.currentOperand.toString().split('');
         this.currentOperand = array.slice(0, -1).join('');
 
         this.display();
